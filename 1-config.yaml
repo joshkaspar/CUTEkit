@@ -321,6 +321,18 @@ tools:
       - 'Create a login token (shown once — save it): zellij web --create-token'
       - 'Point your reverse proxy at http://localhost:8082'
 
+  - name: caddy
+    backend: apt
+    package: caddy
+    custom_setup: |
+      sudo install -dm 755 /etc/apt/keyrings
+      curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+      curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+    post_install:
+      - 'Configure Caddy to proxy Zellij: sudo nano /etc/caddy/Caddyfile'
+      - 'Replace the contents with your domain block and add: reverse_proxy localhost:8082'
+      - 'Restart Caddy: sudo systemctl restart caddy'
+
   - name: openssh-server
     backend: apt
     package: openssh-server
