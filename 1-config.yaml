@@ -333,7 +333,8 @@ tools:
       - 'Open firewall ports: sudo ufw allow 80 && sudo ufw allow 443'
       - 'Edit the Caddyfile: sudo nano /etc/caddy/Caddyfile'
       - 'Replace the default contents with: yourdomain.com { reverse_proxy localhost:8082 }'
-      - 'Restart Caddy: sudo systemctl restart caddy'
+      - 'Enable Caddy at boot: sudo systemctl enable caddy'
+      - 'Restart Caddy to apply config: sudo systemctl restart caddy'
 
   - name: openssh-server
     backend: apt
