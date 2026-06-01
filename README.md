@@ -19,9 +19,9 @@ Example:
     package: mise				# REQUIRED for apt - exact apt package name
     installed_check: "mise ls"  # optional  bash expression; setup is skipped if it exits 0
     custom_setup: |				# optional  runs before apt-get install
-      sudo install -dm 755 /etc/apt/keyrings
-      curl -fsSL https://mise.jdx.dev/gpg-key.pub | sudo tee /etc/apt/keyrings/mise-archive-keyring.asc 1> /dev/null
-      echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+      install -dm 755 /etc/apt/keyrings
+      curl -fsSL https://mise.jdx.dev/gpg-key.pub | tee /etc/apt/keyrings/mise-archive-keyring.asc 1> /dev/null
+      echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | tee /etc/apt/sources.list.d/mise.list
     shell_setup:				# optional  list of lines written to .zshrc.setup
       - 'eval "$(mise activate zsh)"'
     reference:					# optional  list of background notes written to tool-reference.md
@@ -55,4 +55,4 @@ Read `4-post-install-steps.md`. It covers shell config, enabling the Zellij web 
 ## Requirements
 - Ubuntu 24.04
 - A non-root user with `sudo`
-- Python 3 and `pyyaml` (`pip install pyyaml`) to run the generator
+- Python 3 and `python3-yaml` (`apt install python3-yaml`) to run the generator

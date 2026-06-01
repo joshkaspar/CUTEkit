@@ -138,9 +138,9 @@ tools:
     package: mise
     installed_check: "mise ls"
     custom_setup: |
-      sudo install -dm 755 /etc/apt/keyrings
-      curl -fsSL https://mise.jdx.dev/gpg-key.pub | sudo tee /etc/apt/keyrings/mise-archive-keyring.asc 1> /dev/null
-      echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+      install -dm 755 /etc/apt/keyrings
+      curl -fsSL https://mise.jdx.dev/gpg-key.pub | tee /etc/apt/keyrings/mise-archive-keyring.asc 1> /dev/null
+      echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | tee /etc/apt/sources.list.d/mise.list
     shell_setup:
       - 'eval "$(mise activate zsh)"'
     reference:
@@ -320,6 +320,21 @@ tools:
       - 'Or enable it from the session manager (Ctrl o + s)'
       - 'Create a login token (shown once — save it): zellij web --create-token'
       - 'Point your reverse proxy at http://localhost:8082'
+
+  - name: caddy
+    backend: apt
+    package: caddy
+    custom_setup: |
+      apt-get install -y gnupg
+      curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+      curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
+    post_install:
+      - 'Caddy requires a real domain name pointing at this server for automatic HTTPS'
+      - 'Open firewall ports: sudo ufw allow 80 && sudo ufw allow 443'
+      - 'Edit the Caddyfile: sudo nano /etc/caddy/Caddyfile'
+      - 'Replace the default contents with: yourdomain.com { reverse_proxy localhost:8082 }'
+      - 'Enable Caddy at boot: sudo systemctl enable caddy'
+      - 'Restart Caddy to apply config: sudo systemctl restart caddy'
 
   - name: openssh-server
     backend: apt

@@ -5,7 +5,7 @@ want to add, comment out anything you don't need.
 
 2. Generate
 
-Requires pyyaml: pip install pyyaml
+Requires python3-yaml: apt install python3-yaml
 
 	 python3 2-generate.py
 
