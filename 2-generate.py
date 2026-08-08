@@ -448,6 +448,12 @@ def build_setup_sh_text(apt_packages, curl_tools, custom_setup_tools, system_con
     lines.append(f'cp "$SCRIPT_DIR/{shell_setup_file}" "$USER_HOME/.zshrc"')
     lines.append('chown -R "$TARGET_USER:$TARGET_USER" "$USER_HOME/.config"')
     lines.append('chown "$TARGET_USER:$TARGET_USER" "$USER_HOME/.zshrc"')
+    # Create .zprofile that sources .zshrc for login shells.
+    # zsh does not source .zshrc for login shells by default,
+    # so without this, SSH sessions won't get mise tools on PATH.
+    lines.append('# Create .zprofile for zsh login shells')
+    lines.append('echo "source ~/.zshrc" > "$USER_HOME/.zprofile"')
+    lines.append('chown "$TARGET_USER:$TARGET_USER" "$USER_HOME/.zprofile"')
     lines.append('mkdir -p "$USER_HOME/CUTEkit-main"')
     lines.append('cp "$SCRIPT_DIR/99-lock-doors.sh" "$USER_HOME/CUTEkit-main/99-lock-doors.sh"')
     lines.append('cp "$SCRIPT_DIR/4-post-install-steps.md" "$USER_HOME/CUTEkit-main/4-post-install-steps.md"')

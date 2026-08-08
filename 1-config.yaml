@@ -142,11 +142,11 @@ tools:
       curl -fsSL https://mise.jdx.dev/gpg-key.pub | tee /etc/apt/keyrings/mise-archive-keyring.asc 1> /dev/null
       echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | tee /etc/apt/sources.list.d/mise.list
     shell_setup:
-      - 'eval "$(mise activate zsh)"'
+      - 'eval "$(mise activate zsh --shims)"'
     reference:
       - Installed via the official mise apt repo, not the Ubuntu default
       - Must be installed before any mise-managed tools are set up
-      - 'For login shells (e.g. SSH sessions), add to ~/.zprofile: eval "$(mise activate zsh --shims)"'
+      - Shims are activated with --shims flag so mise tools work in login shells (SSH)
 
   # ── System packages ────────────────────────────────────────────────────────
 
