@@ -320,6 +320,7 @@ tools:
       - 'Or enable it from the session manager (Ctrl o + s)'
       - 'Create a login token (shown once — save it): zellij web --create-token'
       - 'Point your reverse proxy at http://localhost:8082'
+      - 'Known bug: backspace in web terminal panes may silently fail to redraw (zellij#4564) because web panes get an empty $TERM. Fix: add export TERM="${TERM:-xterm-256color}" as the first line of ~/.zshrc, then start a new pane'
 
   - name: caddy
     backend: apt
