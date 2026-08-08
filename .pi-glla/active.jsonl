@@ -1,3 +1,0 @@
-{"type":"session_rebound","value":{"reason":"unknown"},"at":"2026-08-08T05:21:22.468Z"}
-{"type":"session_waiting_for_load","value":{"reason":"unknown"},"at":"2026-08-08T05:21:22.475Z"}
-{"type":"state","value":{"goal":null,"list":[],"loop":null,"mainModelRecovery":null,"lastModelRef":"wopr/qwen3.6-27b"},"at":"2026-08-08T05:30:24.010Z"}
