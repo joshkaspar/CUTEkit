@@ -508,7 +508,7 @@ def build_setup_sh_text(apt_packages, curl_tools, custom_setup_tools, system_con
     lines.append('echo "      ssh $TARGET_USER@$THIS_IP"')
     lines.append('echo ""')
     lines.append('echo "    If that works, run the hardening script from that new session:"')
-    lines.append('echo "      bash ~/CUTEkit-main/99-lock-doors.sh"')
+    lines.append('echo "      sudo bash ~/CUTEkit-main/99-lock-doors.sh"')
     lines.append('echo ""')
     lines.append('echo "    The hardening script disables password auth. There is no undo."')
     lines.append('printf "\\033[0m"')

@@ -11,9 +11,11 @@ Requires python3-yaml: apt install python3-yaml
 
 3. Run setup
 
-Run as a non-root user with sudo. Takes a few minutes.
+Run as root. Takes a few minutes. It creates a non-root sudo user for
+you (you'll be prompted for a username and password) and copies root's
+SSH key over so you can log in as that user afterward.
 
-       bash 3-setup.sh
+       sudo bash 3-setup.sh
 
 4. Finish up
 

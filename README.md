@@ -45,8 +45,9 @@ python3 2-generate.py
 This writes `3-setup.sh`, `~/.config/mise/config.toml`, `.zshrc.setup`, `4-post-install-steps.md`, and `tool-reference.md`.
 
 ### 4. Run the setup script
+Run as root — it creates a non-root sudo user for you (you'll be prompted for a username and password) and copies root's SSH key over so you can log in as that user afterward.
 ```bash
-bash 3-setup.sh
+sudo bash 3-setup.sh
 ```
 
 ### 5. Finish up
@@ -54,5 +55,5 @@ Read `4-post-install-steps.md`. It covers shell config, enabling the Zellij web 
 
 ## Requirements
 - Ubuntu 24.04
-- A non-root user with `sudo`
+- Root access (to create the sudo user) — the SSH key you'll log in with afterward must already be in root's `authorized_keys`; most cloud providers do this automatically when you provide a key at server creation
 - Python 3 and `python3-yaml` (`apt install python3-yaml`) to run the generator

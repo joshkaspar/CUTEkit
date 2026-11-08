@@ -322,6 +322,15 @@ tools:
       - 'Point your reverse proxy at http://localhost:8082'
       - 'Known bug: backspace in web terminal panes may silently fail to redraw (zellij#4564) because web panes get an empty $TERM. Fix: add export TERM="${TERM:-xterm-256color}" as the first line of ~/.zshrc, then start a new pane'
 
+  - name: ufw
+    backend: apt
+    package: ufw
+    post_install:
+      - 'ufw is installed but not enabled by default — enabling it before allowing SSH will lock you out'
+      - 'Allow SSH first: sudo ufw allow OpenSSH'
+      - 'Then enable it: sudo ufw enable'
+      - 'Check status any time: sudo ufw status'
+
   - name: caddy
     backend: apt
     package: caddy
@@ -330,8 +339,10 @@ tools:
       curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
       curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
     post_install:
+      - 'Start zellij''s web server first (zellij web --status) — Caddy only proxies to it, it has nothing to serve until that''s running'
       - 'Caddy requires a real domain name pointing at this server for automatic HTTPS'
-      - 'Open firewall ports: sudo ufw allow 80 && sudo ufw allow 443'
+      - 'If your DNS is behind a proxying CDN (e.g. Cloudflare''s orange-cloud), switch that record to "DNS only" first — a proxied record breaks the HTTPS certificate challenge'
+      - 'If ufw is enabled, allow these ports too: sudo ufw allow 80 && sudo ufw allow 443'
       - 'Edit the Caddyfile: sudo nano /etc/caddy/Caddyfile'
       - 'Replace the default contents with: yourdomain.com { reverse_proxy localhost:8082 }'
       - 'Enable Caddy at boot: sudo systemctl enable caddy'
@@ -342,7 +353,7 @@ tools:
     package: openssh-server
     post_install:
       - 'If SSH hardening was not completed during setup, open a new terminal and confirm you can log in as your user'
-      - 'Then run the hardening script: sudo bash ~/cutekit/99-lock-doors.sh'
+      - 'Then run the hardening script: sudo bash ~/CUTEkit-main/99-lock-doors.sh'
 
 # ── Optional runtimes (required for certain backends) ──────────────────────
   # Uncomment the runtime for any backend you plan to use.
