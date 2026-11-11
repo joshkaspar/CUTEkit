@@ -40,7 +40,7 @@ Example:
 
 ### 3. Generate the files
 ```bash
-python3 2-generate.py
+python3 cutekit.py generate
 ```
 This writes `3-setup.sh`, `~/.config/mise/config.toml`, `.zshrc.setup`, `4-post-install-steps.md`, and `tool-reference.md`.
 

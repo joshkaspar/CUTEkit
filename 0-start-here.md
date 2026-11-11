@@ -7,7 +7,7 @@ want to add, comment out anything you don't need.
 
 Requires python3-yaml: apt install python3-yaml
 
-	 python3 2-generate.py
+	 python3 cutekit.py generate
 
 3. Run setup
 
